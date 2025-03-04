@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: trufflehog
+        name: TruffleHog
+        description: Detect secrets in your data.
+        entry: bash -c 'if ! command -v pre-commit &> /dev/null; then pip install pre-commit && pre-commit install; fi; if ! command -v trufflehog &> /dev/null; then pip install trufflehog; fi; trufflehog git file://. --since-commit HEAD --results=verified,unknown --fail'
+        language: system
+        stages: ["commit", "push"]
